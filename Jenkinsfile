@@ -21,11 +21,18 @@ pipeline {
         }
 
 
-        stage ('Deployment Stage') {
+        stage ('Package Stage') {
             steps {
                 withMaven(maven : 'MAVEN_HOME') {
                     sh 'mvn clean install'
                 }
+		    }
+        }
+		
+		stage ('Deploy Stage') {
+            steps {
+                cp ./target/demo-0.0.1-SNAPSHOT.war /home/infogain/tomcat9/webapps/.
+                		
             }
         }
     }
